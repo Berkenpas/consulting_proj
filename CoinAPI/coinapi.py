@@ -4,7 +4,7 @@ import json
 import requests
 
 
-def load_keys(keys_path="./keys.json"):
+def load_keys(keys_path="../private/keys.json"):
     return json.load(open(keys_path))
 
 def retrieve_data(keys):
@@ -13,7 +13,7 @@ def retrieve_data(keys):
 
 
 
-def retrieve_asset_data(keys, file_save = "./asset_data.json"):
+def retrieve_asset_data(keys, file_save = "../private/asset_data.json"):
     if os.path.isfile(file_save):
         return json.loads(open(file_save).read())
     else:
@@ -43,4 +43,15 @@ def print_coins(coins):
             break
 
 if __name__ == '__main__':
+    if not os.path.isdir("../private"):
+        print("You do not have the keys present, get the keys and place them in the private folder with the filename \"keys.json\"")
+
+        try:
+            os.mkdir("../private")
+        except FileExistsError:
+            pass
+        except:
+            print("Fatal error making '../private'")
+            sys.exit()
+
     main()
