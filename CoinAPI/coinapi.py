@@ -22,7 +22,7 @@ def retrieve_asset_data(keys, file_save = "../private/asset_data.json"):
 
         response = requests.get(base_url, headers=headers)
 
-        with open('./asset_data.json', 'w') as f:
+        with open(file_save, 'w') as f:
             json.dump(response.json(), f)
 
         return response.json()
@@ -45,13 +45,17 @@ def print_coins(coins):
 if __name__ == '__main__':
     if not os.path.isdir("../private"):
         print("You do not have the keys present, get the keys and place them in the private folder with the filename \"keys.json\"")
-
+        exit = False
         try:
             os.mkdir("../private")
+            exit = True
         except FileExistsError:
             pass
         except:
             print("Fatal error making '../private'")
+            sys.exit()
+
+        if exit:
             sys.exit()
 
     main()
