@@ -3,6 +3,8 @@ import sys
 import json
 import requests
 
+from tqdm import tqdm
+
 established_coins = ["BTC", "ETH", "BNB", "ADA", "DOT", "UNI", "LTC", "LINK", "VET", "XLM"]
 baby_coins = ["AKT", "BAO", "AOA", "RBC", "DAG", "BFC", "MUSH", "FORTH", "ATT", "BNANA"]
 
@@ -10,9 +12,46 @@ def load_keys(keys_path="../private/keys.json"):
     return json.load(open(keys_path))
 
 
-def retrieve_data(keys):
-    headers = {"X-CoinAPI-Key": keys['key']}
-    base_url = "http://rest.coinapi.io/vi/ohlcv/periods/"
+def retrieve_data(keys, data_dir="../private/"):
+    current_key = 1
+    headers = {"X-CoinAPI-Key": keys[str(current_key)]}
+    base_url = "http://rest.coinapi.io/v1/ohlcv/{}/USD/history?period_id=12HRS&time_start={}&include_empty_items=true&limit=100000"
+    start_data = "2010-01-01T08:00:00.000Z"
+    established_coins_data = {}
+    for coin in tqdm(established_coins):
+        response = requests.get(base_url.format(coin, start_data), headers=headers)
+        while response.status_code == 429 and current_key < len(keys):
+            current_key += 1
+            headers = {"X-CoinAPI-Key": keys[str(current_key)]}
+            response = requests.get(base_url.format(coin, start_data), headers=headers)
+
+        if current_key == len(keys) and response.status_code == 429:
+            print("We are out of requests, try back later...")
+            partial_est_path = os.path.join(data_dir, "partial_established_coin_data.json")
+            json.dump(established_coins_data, open(partial_est_path, 'w+'))
+            sys.exit()
+
+        established_coins_data[coin] = response.json()
+    established_data_path = os.path.join(data_dir, "established_coin_data.json")
+    json.dump(established_coins_data, open(established_data_path, 'w+'))
+
+    baby_coin_data = {}
+    for coin in tqdm(baby_coins):
+        response = requests.get(base_url.format(coin, start_data), headers=headers)
+        while response.status_code == 429 and current_key < len(keys):
+            current_key += 1
+            headers = {"X-CoinAPI-Key": keys[str(current_key)]}
+            response = requests.get(base_url.format(coin, start_data), headers=headers)
+
+        if current_key == len(keys) and response.status_code == 429:
+            print("We are out of requests, try back later...")
+            partial_baby_keys_path = os.path.join(data_dir, "partial_baby_coin_data.json")
+            json.dump(baby_coin_data, open(partial_baby_keys_path, 'w+'))
+            sys.exit()
+        baby_coin_data[coin] = response.json()
+
+    baby_coin_path = os.path.join(data_dir, "baby_coin_data.json")
+    json.dump(baby_coin_data, open(baby_coin_path, 'w+'))
 
 
 def retrieve_asset_data(keys, file_save="../private/asset_data.json"):
@@ -34,8 +73,8 @@ def main():
     keys = load_keys()
 
     coins = retrieve_asset_data(keys)
-    print_coins(coins)
-
+    # print_coins(coins)
+    retrieve_data(keys)
 
 def print_coins(coins):
     i = 0
