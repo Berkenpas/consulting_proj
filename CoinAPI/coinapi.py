@@ -17,7 +17,7 @@ def retrieve_data(keys, data_dir="../private/"):
     current_key = 1
     headers = {"X-CoinAPI-Key": keys[str(current_key)]}
     base_url = "http://rest.coinapi.io/v1/ohlcv/{}/USD/history?period_id=12HRS&time_start={}" \
-               "&include_empty_items=true&limit=100000 "
+               "&include_empty_items=true&limit=100000"
     start_date = "2010-01-01T08:00:00.000Z"
     established_coins_data = {}
     for coin in tqdm(established_coins):
