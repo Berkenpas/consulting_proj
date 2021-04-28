@@ -16,14 +16,14 @@ def retrieve_data(keys, data_dir="../private/"):
     current_key = 1
     headers = {"X-CoinAPI-Key": keys[str(current_key)]}
     base_url = "http://rest.coinapi.io/v1/ohlcv/{}/USD/history?period_id=12HRS&time_start={}&include_empty_items=true&limit=100000"
-    start_data = "2010-01-01T08:00:00.000Z"
+    start_date = "2010-01-01T08:00:00.000Z"
     established_coins_data = {}
     for coin in tqdm(established_coins):
-        response = requests.get(base_url.format(coin, start_data), headers=headers)
+        response = requests.get(base_url.format(coin, start_date), headers=headers)
         while response.status_code == 429 and current_key < len(keys):
             current_key += 1
             headers = {"X-CoinAPI-Key": keys[str(current_key)]}
-            response = requests.get(base_url.format(coin, start_data), headers=headers)
+            response = requests.get(base_url.format(coin, start_date), headers=headers)
 
         if current_key == len(keys) and response.status_code == 429:
             print("We are out of requests, try back later...")
@@ -37,11 +37,11 @@ def retrieve_data(keys, data_dir="../private/"):
 
     baby_coin_data = {}
     for coin in tqdm(baby_coins):
-        response = requests.get(base_url.format(coin, start_data), headers=headers)
+        response = requests.get(base_url.format(coin, start_date), headers=headers)
         while response.status_code == 429 and current_key < len(keys):
             current_key += 1
             headers = {"X-CoinAPI-Key": keys[str(current_key)]}
-            response = requests.get(base_url.format(coin, start_data), headers=headers)
+            response = requests.get(base_url.format(coin, start_date), headers=headers)
 
         if current_key == len(keys) and response.status_code == 429:
             print("We are out of requests, try back later...")
