@@ -8,6 +8,7 @@ from tqdm import tqdm
 established_coins = ["BTC", "ETH", "BNB", "ADA", "DOT", "UNI", "LTC", "LINK", "VET", "XLM"]
 baby_coins = ["AKT", "BAO", "AOA", "RBC", "DAG", "BFC", "MUSH", "FORTH", "ATT", "BNANA"]
 
+
 def load_keys(keys_path="../private/keys.json"):
     return json.load(open(keys_path))
 
@@ -15,7 +16,8 @@ def load_keys(keys_path="../private/keys.json"):
 def retrieve_data(keys, data_dir="../private/"):
     current_key = 1
     headers = {"X-CoinAPI-Key": keys[str(current_key)]}
-    base_url = "http://rest.coinapi.io/v1/ohlcv/{}/USD/history?period_id=12HRS&time_start={}&include_empty_items=true&limit=100000"
+    base_url = "http://rest.coinapi.io/v1/ohlcv/{}/USD/history?period_id=12HRS&time_start={}" \
+               "&include_empty_items=true&limit=100000 "
     start_date = "2010-01-01T08:00:00.000Z"
     established_coins_data = {}
     for coin in tqdm(established_coins):
@@ -75,6 +77,7 @@ def main():
     coins = retrieve_asset_data(keys)
     # print_coins(coins)
     retrieve_data(keys)
+
 
 def print_coins(coins):
     i = 0
