@@ -74,8 +74,6 @@ def retrieve_asset_data(keys, file_save="../private/asset_data.json"):
 def main():
     keys = load_keys()
 
-    coins = retrieve_asset_data(keys)
-    # print_coins(coins)
     retrieve_data(keys)
 
 
