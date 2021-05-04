@@ -6,7 +6,7 @@ import requests
 from tqdm import tqdm
 
 established_coins = ["BTC", "ETH", "BNB", "ADA", "DOT", "UNI", "LTC", "LINK", "VET", "XLM"]
-baby_coins = ["AKT", "BAO", "AOA", "RBC", "DAG", "BFC", "MUSH", "FORTH", "ATT", "BNANA"]
+baby_coins = ["DENT", "REN", "VGX", "AR", "1INCH", "XVG", "CRV", "PROM", "CFX", "LSK"]
 
 
 def load_keys(keys_path="../private/keys.json"):

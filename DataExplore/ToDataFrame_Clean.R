@@ -69,57 +69,57 @@ write.csv(xlm_frame, file = "../private/coins/xlm.csv", row.names = FALSE)
 baby_coins <- fromJSON(file = "../private/baby_coin_data.json")
 names(baby_coins)
 
-akt <- baby_coins$AKT[unlist(lapply(baby_coins$AKT, function(i) length(i)==10))]
-bao <- baby_coins$BAO[unlist(lapply(baby_coins$BAO, function(i) length(i)==10))]
-aoa <- baby_coins$AOA[unlist(lapply(baby_coins$AOA, function(i) length(i)==10))]
-rbc <- baby_coins$RBC[unlist(lapply(baby_coins$RBC, function(i) length(i)==10))]
-dag <- baby_coins$DAG[unlist(lapply(baby_coins$DAG, function(i) length(i)==10))]
-bfc <- baby_coins$BFC[unlist(lapply(baby_coins$BFC, function(i) length(i)==10))]
-mush <- baby_coins$MUSH[unlist(lapply(baby_coins$MUSH, function(i) length(i)==10))]
-forth <- baby_coins$FORTH[unlist(lapply(baby_coins$FORTH, function(i) length(i)==10))]
-att <- baby_coins$ATT[unlist(lapply(baby_coins$ATT, function(i) length(i)==10))]
-bnana <- baby_coins$BNANA[unlist(lapply(baby_coins$BNANA, function(i) length(i)==10))]
+DENT <- baby_coins$DENT[unlist(lapply(baby_coins$DENT, function(i) length(i)==10))]
+REN <- baby_coins$REN[unlist(lapply(baby_coins$REN, function(i) length(i)==10))]
+VGX <- baby_coins$VGX[unlist(lapply(baby_coins$VGX, function(i) length(i)==10))]
+AR <- baby_coins$AR[unlist(lapply(baby_coins$AR, function(i) length(i)==10))]
+ONEINCH <- baby_coins$`1INCH`[unlist(lapply(baby_coins$`1INCH`, function(i) length(i)==10))]
+XVG <- baby_coins$XVG[unlist(lapply(baby_coins$XVG, function(i) length(i)==10))]
+CRV <- baby_coins$CRV[unlist(lapply(baby_coins$CRV, function(i) length(i)==10))]
+PROM <- baby_coins$PROM[unlist(lapply(baby_coins$PROM, function(i) length(i)==10))]
+CFX <- baby_coins$CFX[unlist(lapply(baby_coins$CFX, function(i) length(i)==10))]
+LSK <- baby_coins$LSK[unlist(lapply(baby_coins$LSK, function(i) length(i)==10))]
 
-akt_frame <- as.data.frame(do.call(rbind, akt))
-akt_frame <- unnest(akt_frame, names(akt_frame))
+dent_frame <- as.data.frame(do.call(rbind, DENT))
+dent_frame <- unnest(dent_frame, names(dent_frame))
 
-bao_frame <- as.data.frame(do.call(rbind, bao))
-bao_frame <- unnest(bao_frame, names(bao_frame))
+ren_frame <- as.data.frame(do.call(rbind, REN))
+ren_frame <- unnest(ren_frame, names(ren_frame))
 
-aoa_frame <- as.data.frame(do.call(rbind, aoa)) 
-aoa_frame <- unnest(aoa_frame, names(aoa_frame))
+vgx_frame <- as.data.frame(do.call(rbind, VGX)) 
+vgx_frame <- unnest(vgx_frame, names(vgx_frame))
 
-rbc_frame <- as.data.frame(do.call(rbind, rbc))
-rbc_frame <- unnest(rbc_frame, names(rbc_frame))
+ar_frame <- as.data.frame(do.call(rbind, AR))
+ar_frame <- unnest(ar_frame, names(ar_frame))
 
-dag_frame <- as.data.frame(do.call(rbind, dag))
-dag_frame <- unnest(dag_frame, names(dag_frame))
+inch_frame <- as.data.frame(do.call(rbind, ONEINCH))
+inch_frame <- unnest(inch_frame, names(inch_frame))
 
-bfc_frame <- as.data.frame(do.call(rbind, bfc))
-bfc_frame <- unnest(bfc_frame, names(bfc_frame))
+xvg_frame <- as.data.frame(do.call(rbind, XVG))
+xvg_frame <- unnest(xvg_frame, names(xvg_frame))
 
-mush_frame <- as.data.frame(do.call(rbind, mush))
-mush_frame <- unnest(mush_frame, names(mush_frame))
+crv_frame <- as.data.frame(do.call(rbind, CRV))
+crv_frame <- unnest(crv_frame, names(crv_frame))
 
-forth_frame <- as.data.frame(do.call(rbind, forth))
-forth_frame <- unnest(forth_frame, names(forth_frame))
+prom_frame <- as.data.frame(do.call(rbind, PROM))
+prom_frame <- unnest(prom_frame, names(prom_frame))
 
-att_frame <- as.data.frame(do.call(rbind, att))
-att_frame <- unnest(att_frame, names(att_frame))
+cfx_frame <- as.data.frame(do.call(rbind, CFX))
+cfx_frame <- unnest(cfx_frame, names(cfx_frame))
 
-bnana_frame <- as.data.frame(do.call(rbind, bnana))
-bnana_frame <- unnest(bnana_frame, names(bnana_frame))
+lsk_frame <- as.data.frame(do.call(rbind, LSK))
+lsk_frame <- unnest(lsk_frame, names(lsk_frame))
 
 dir.create("../private/coins", showWarnings = FALSE)
 
-write.csv(akt_frame, file = "../private/coins/akt.csv", row.names = FALSE)
-write.csv(bao_frame, file = "../private/coins/bao.csv", row.names = FALSE)
-write.csv(aoa_frame, file = "../private/coins/aoa.csv", row.names = FALSE)
-write.csv(rbc_frame, file = "../private/coins/rbc.csv", row.names = FALSE)
-write.csv(dag_frame, file = "../private/coins/dag.csv", row.names = FALSE)
-write.csv(bfc_frame, file = "../private/coins/bfc.csv", row.names = FALSE)
-write.csv(mush_frame, file = "../private/coins/mush.csv", row.names = FALSE)
-write.csv(forth_frame, file = "../private/coins/forth.csv", row.names = FALSE)
-write.csv(att_frame, file = "../private/coins/att.csv", row.names = FALSE)
-write.csv(bnana_frame, file = "../private/coins/bnana.csv", row.names = FALSE)
+write.csv(dent_frame, file = "../private/coins/dent.csv", row.names = FALSE)
+write.csv(ren_frame, file = "../private/coins/ren.csv", row.names = FALSE)
+write.csv(vgx_frame, file = "../private/coins/vgx.csv", row.names = FALSE)
+write.csv(ar_frame, file = "../private/coins/ar.csv", row.names = FALSE)
+write.csv(inch_frame, file = "../private/coins/1inch.csv", row.names = FALSE)
+write.csv(xvg_frame, file = "../private/coins/xvg.csv", row.names = FALSE)
+write.csv(crv_frame, file = "../private/coins/crv.csv", row.names = FALSE)
+write.csv(prom_frame, file = "../private/coins/prom.csv", row.names = FALSE)
+write.csv(cfx_frame, file = "../private/coins/cfx.csv", row.names = FALSE)
+write.csv(lsk_frame, file = "../private/coins/lsx.csv", row.names = FALSE)
 
