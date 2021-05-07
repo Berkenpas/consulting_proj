@@ -1,0 +1,90 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+setwd("C:\\Users\\steak\\Downloads")
+
+
+
+uni <- read.csv("uni.csv")
+
+ren <- read.csv("ren.csv")
+
+xvg <- read.csv("xvg.csv")
+
+link <- read.csv("link.csv")
+
+crv <- read.csv("crv.csv")
+
+
+uni$coin <- "UNI"
+
+
+crv$coin <- "CRV"
+
+
+dfUNICRV <- rbind(uni,crv)
+
+library(ggplot2)
+
+ggplot(data=dfUNICRV, aes(x= time_period_start, y= price_high, group=coin, color=coin)) +
+stat_summary(fun = mean, geom = "line") +
+xlab("Time") +
+ylab("Price") + scale_y_log10() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank()) + ggtitle("CRV vs UNI") + theme(plot.title = element_text(hjust = 0.5)) 
+ggsave("CRV_UNI.png", dpi=300)
+
+print(uni_crv)
+
+```
+```{r}
+xvg$coin <- "XVG"
+
+
+link$coin <- "LINK"
+
+
+dfXVGLINK <- rbind(link, xvg[850:2056,])
+
+dfXVGLINK$Time <- as.numeric(row.names(dfXVGLINK))
+
+
+library(ggplot2)
+
+ggplot(data=dfXVGLINK, aes(x=time_period_start, y=price_high, group=coin, color=coin)) +
+stat_summary(fun = mean, geom = "line") +
+xlab("Time") +
+ylab("Price") + scale_y_log10() + ggtitle("XVG vs LINK") + theme(plot.title = element_text(hjust = 0.5)) + scale_color_hue(direction = -1, h.start=90)
+ggsave("XVG_LINK.png", dpi=300)
+
+
+print(xvg_link)
+```
+
+
+```{r}
+ren$coin <- "REN"
+
+
+uni$coin <- "UNI"
+
+
+dfRENUNI <- rbind(ren,uni)
+
+library(ggplot2)
+
+png("test.png", units="in", width=5, height=5, res=300)
+ggplot(data=dfRENUNI, aes(x= time_period_start, y= price_high, group=coin, color=coin)) +
+stat_summary(fun = mean, geom = "line") +
+xlab("Time") +
+ylab("Price") + scale_y_log10() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank()) + ggtitle("REN vs UNI") + theme(plot.title = element_text(hjust = 0.5)) 
+ggsave("REN_UNI.png", dpi=300)
+
+
+
+print(ren_uni)
+```
+
